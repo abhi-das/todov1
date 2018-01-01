@@ -10,8 +10,6 @@ import { readFileSync } from 'fs';
 import * as bodyParser from 'body-parser';
 
 
-const groceryService  = require('./services/groceryService');
-
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
 
@@ -88,15 +86,6 @@ app.get('*', (req, res) => {
   });
 });
 
-// app.post('/api/addGrocery', function (req, res) {
-//   let groceryServiceObj = new groceryService(req, res)
-//   groceryServiceObj.getGrocery()
-// })
-
-app.get('/api/getGrocery', function (req, res) {
-  let groceryServiceObj = new groceryService(req, res)
-  groceryServiceObj.getList()
-})
 
 // Start up the Node server
 app.listen(PORT, () => {
