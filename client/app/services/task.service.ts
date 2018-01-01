@@ -9,6 +9,12 @@ import { TaskModel } from '../models/task-model';
 
 export class TaskService {
 
+	/*
+		// Need 2 Subject Observerables
+		- completed task list
+		- incomplete task list
+	*/
+
 	constructor(private _http: Http, @Inject(PLATFORM_ID) private platformId: Object,
 			private injector: Injector) {}
 
@@ -47,5 +53,51 @@ export class TaskService {
 			}
 		});
 	}
+
+	/*
+	 * @func changeTaskStatus()
+	 * @param id: index of incomplete task which is not completed
+	 * @param completedTaskLs: as TaskModel[]
+	 * @param inCompleteTaskLs: filter by flag type
+	 * @return object completedTaskLs[] and inCompleteTaskLs[]
+	 * @purpose update complete and incomplete task list
+	*/
+	changeTaskStatus(id:number, completedTaskLs: TaskModel[], inCompleteTaskLs: TaskModel[]) {
+
+		completedTaskLs.push(inCompleteTaskLs[id]);
+		inCompleteTaskLs.splice(id, 1);
+
+		return {inCompleteTaskLs, completedTaskLs};
+	}
+
+	/*
+	 * @func taskClose()
+	 * @param id: index of incomplete task which is not completed
+	 * @param completedTaskLs: as TaskModel[]
+	 * @return completedTaskLs[]
+	 * @purpose update completed task list on task close
+	*/
+	taskClose(id:number, completedTaskLs: TaskModel[]): TaskModel[] {
+
+		completedTaskLs.splice(id, 1);
+
+		return completedTaskLs;
+	}
+
+
+	/*
+	 * @func updateTaskList()
+	 * @param task: get the new task from user
+	 * @return incompleteTaskLs[]
+	 * @purpose update incompleted task list on task add new task
+	*/
+	updateTaskList(task: TaskModel) {
+
+		/*
+			* Just update incomplete taks list overserable
+		*/
+		// return completedTaskLs;
+	}
+
 
 }

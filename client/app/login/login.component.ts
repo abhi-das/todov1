@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'login',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 	*/
 	loginForm: FormGroup;
 
-	constructor(private _route: Router) {}
+	constructor(private _route: Router, private _LoginSrv: LoginService) {}
 
 	/*
 	 * @func ngOnInit()
@@ -36,7 +36,11 @@ export class LoginComponent implements OnInit {
 	*/
 	onAuth():void {
 		// console.log(this.loginForm.value);
-		this._route.navigate(['/dashboard', this.loginForm.value.userid ])
+		var tmpUserid = this.loginForm.value.userid;
+		
+		this._LoginSrv.setLoginId(tmpUserid);
+
+		this._route.navigate(['/dashboard', tmpUserid ]);
 	}
 
 }

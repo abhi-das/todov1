@@ -1,0 +1,22 @@
+.task {
+	&__new-item {
+		position: relative;
+		padding: 1em 1em .8em 1em;
+	    margin: .5em;
+    	box-shadow: 4px 4px 3px #bdb6b6;
+		background: #f1f1f1;
+		&-title {
+			font-weight: 700;
+			font-size: 1.5em;
+		}
+		&-author {
+			font-size: .9em;
+		    margin-bottom: 0;
+		}
+		&-btn-close {
+			position: absolute;
+			top: 1em;
+			right: 1em;
+		}
+	}
+}
