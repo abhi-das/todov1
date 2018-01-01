@@ -61,14 +61,18 @@ export class TaskService {
 	getTaskByFlag(resTaskList: TaskModel[], flag: string): TaskModel[] {
 
 		let tmpList;
+		let tmpFlag = '';
 
 		tmpList = resTaskList.filter((taskLs) => {
-			if(taskLs['status'] === flag) {
+			
+			tmpFlag = taskLs['status'];
+
+			if(tmpFlag === flag) {
 				return taskLs;
 			}
 		});
 
-		if(flag == 'completed') {
+		if(flag == tmpFlag) {
 			this.compSource.next(tmpList);
 		} else {
 			this.inCompSource.next(tmpList);
