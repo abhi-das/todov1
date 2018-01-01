@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit {
 	*/
 	onTaskComplete(idx:number):void {
 
-		this._taskSrv.changeTaskStatus(idx, this.completedTaskLs, this.inCompletedTaskLs);
+		this._taskSrv.changeTaskStatus(idx);
 		
 	}
 
@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit {
 	*/
 	onTaskClose(idx:number): void {
 
-		this._taskSrv.taskClose(idx, this.completedTaskLs);
+		this._taskSrv.taskClose(idx);
 	}
 
 	/*

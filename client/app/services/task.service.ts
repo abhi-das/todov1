@@ -60,8 +60,6 @@ export class TaskService {
 	*/
 	getTaskByFlag(resTaskList: TaskModel[], flag: string): TaskModel[] {
 
-		// console.log(flag);
-
 		let tmpList;
 
 		tmpList = resTaskList.filter((taskLs) => {
@@ -77,43 +75,37 @@ export class TaskService {
 		}
 		
 		return tmpList;
-
 	}
 
 	/*
 	 * @func changeTaskStatus()
-	 * @param id: index of incomplete task which is not completed
-	 * @param completedTaskLs: as TaskModel[]
-	 * @param inCompleteTaskLs: filter by flag type
+	 * @param id: index of incomplete task which is now completed
 	 * @return void
 	 * @purpose update complete and incomplete task list observables
 	*/
-	changeTaskStatus(id:number, completedTaskLs: TaskModel[], inCompleteTaskLs: TaskModel[]): void {
+	changeTaskStatus(id:number): void {
 
+		let onTaskComp = this.inComp.subscribe(taskItm => {
+			this.comp.subscribe( task => task.push(taskItm[id]));
+			taskItm.splice(id,1);
+		});
 
-		completedTaskLs.push(inCompleteTaskLs[id]);
-
-		this.compSource.next(completedTaskLs);
-
-		inCompleteTaskLs.splice(id, 1);
-
-		this.inCompSource.next(inCompleteTaskLs);
-
-		return;
+		onTaskComp.unsubscribe();
 	}
 
 	/*
 	 * @func taskClose()
-	 * @param id: index of incomplete task which is not completed
-	 * @param completedTaskLs: as TaskModel[]
+	 * @param id: completed task id
 	 * @return void
 	 * @purpose update completed task list on task close
 	*/
-	taskClose(id:number, completedTaskLs: TaskModel[]): void {
+	taskClose(id:number): void {
 
-		completedTaskLs.splice(id, 1);
+		let closeComp = this.comp.subscribe(taskItm => {
+			taskItm.splice(id, 1);
+		});
 
-		this.compSource.next(completedTaskLs);
+		closeComp.unsubscribe();
 	}
 
 	/*
