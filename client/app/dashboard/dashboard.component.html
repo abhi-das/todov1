@@ -1,0 +1,55 @@
+<div class="container">
+	<!-- Login User Info -->
+	<div class="row text-right">
+		<a class="btn btn-link" [routerLink]="['/login']">Logout </a>
+		<p>{{userId}} <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i></p>
+	</div>
+	<div class="row task">
+		<!-- Task In Progress -->
+		<div class="col-md-6">
+			<div class="task-column">
+				<h2 class="task__status-progress">
+					In Progress
+				</h2>
+				<!-- Task List -->
+				<ul class="task__task-list">
+					<li class="task__item">
+						<p class="task__item-title">Item Title</p>
+						<p class="task__item-description">Description</p>
+						<p class="task__item-author text-right text-info">
+							{{userId}}
+							<i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i></p>
+						<button type="button" class="btn btn-sm btn-link task__btn-close" >
+							<i class="fa fa-close"></i></button>
+
+					</li>
+				</ul>
+				<!-- Add Task -->
+				<div class="text-center">
+					<button type="button" class="task__add btn btn-link">(Add new task)</button>
+				</div>
+			</div>
+		</div>
+		<!-- Task Completed -->
+		<div class="col-md-6">
+			<div class="task-column">
+				<h2 class="task__status-complete">
+					Completed
+				</h2>
+				<!-- Task List -->
+				<ul class="task__task-list">
+					<li class="task__item">
+						<p class="task__item-title">Item Title</p>
+						<p class="task__item-description">Description</p>
+						<p class="task__item-author text-right text-info">
+							{{userId}}
+							<i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i></p>
+						<button type="button" class="btn btn-sm btn-link task__btn-close" >
+							<i class="fa fa-close"></i></button>
+
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+ </div>
