@@ -8,7 +8,7 @@ import { TaskModel } from '../../models/task-model';
   selector: 'add-new-task',
   templateUrl: './add-new-task.component.html',
   styleUrls: ['./add-new-task.component.scss'],
-  outputs: ['cancelEvent']
+  outputs: ['cancelEvent', 'addTaskEvent']
 })
 export class AddNewTaskComponent implements OnInit {
 
@@ -16,6 +16,7 @@ export class AddNewTaskComponent implements OnInit {
 	 * Local variable declaration
 	*/
 	private cancelEvent = new EventEmitter<boolean>();
+	private addTaskEvent = new EventEmitter();
 
 	addNewTaskForm: FormGroup;
 
@@ -50,24 +51,23 @@ export class AddNewTaskComponent implements OnInit {
 	 * @variable obj: static task format
 	 * @variable newData: Merge static obj and user form data
 	 * @variable taskMod: deserialize the newData object
+	 * Emit addTaskEvent to the parent component to update incomplete task list Observerables
 	 * 
 	*/
 	onAddTask(): void {
 
-		var obj = {
+		let obj = {
 			status: "notCompleted", 
     		author: this._LoginSrv.getLoginId()
 		};
 
-		var newData = Object.assign(obj, this.addNewTaskForm.value);
+		let newData = Object.assign(obj, this.addNewTaskForm.value);
 
-		var taskMod = new TaskModel().deserialize(newData)
+		let taskMod = new TaskModel().deserialize(newData)
 
 		this._taskSrv.updateTaskList(taskMod);
 
-		// Call task service to add new task in the list
-
-		this.cancelEvent.emit(false);
+		this.addTaskEvent.emit();
 	}
 
 }

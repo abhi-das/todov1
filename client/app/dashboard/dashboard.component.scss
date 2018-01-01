@@ -59,6 +59,32 @@
 		position: absolute;
 		top: 1em;
 		right: 1em;
+		padding: 0;
+		color: #ffa500;
+		transition: color .5s;
+		&:hover {
+			color: #39bb39;
+		}
+	}
+
+	&__btn-delete {
+		position: absolute;
+		top: 1em;
+		right: 4em;
+		padding: 0;
+		color: #999999;
+		transition: color .5s;
+		&:hover {
+			color: #ea5b5b;
+		}
+	}
+
+	&__btn-completed {
+		position: absolute;
+		top: 1em;
+		right: 1em;
+		padding: 0;
+		color: #39bb39;
 	}
 
 }

@@ -21,17 +21,22 @@
 						<div class="task__item-description" [innerHTML]="task.description"></div>
 						<p class="task__item-author text-right text-info">
 							{{userId}}
-							<i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i></p>
+							<i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+						</p>
+						<button type="button" class="btn btn-sm btn-link task__btn-delete"
+							(click)="onTaskDelete(idx)">
+							<i class="fa fa-trash-o fa-2x"></i>
+						</button>
 						<button type="button" class="btn btn-sm btn-link task__btn-close"
 							(click)="onTaskComplete(idx)">
-							<i class="fa fa-close"></i>
-						</button>
+							<i class="fa fa-check-square-o fa-2x"></i>
+						</button>						
 					</li>
 					
 					<!-- Add Task Inline Editor -->
 
 					<li class="task__item" *ngIf="isAdd">
-						<add-new-task (cancelEvent)="isCancelFunc($event)"></add-new-task>
+						<add-new-task (cancelEvent)="isCancelFunc($event)" (addTaskEvent)="onAddNewTask()"></add-new-task>
 					</li>
 
 				</ul>
@@ -56,9 +61,9 @@
 						<p class="task__item-author text-right text-info">
 							{{userId}}
 							<i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i></p>
-						<button type="button" class="btn btn-sm btn-link task__btn-close" 
+						<button type="button" class="btn btn-sm btn-link task__btn-completed" 
 									(click)="onTaskClose(idx)">
-							<i class="fa fa-close"></i></button>
+							<i class="fa fa-check-square fa-2x"></i></button>
 
 					</li>
 				</ul>

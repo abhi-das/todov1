@@ -4,12 +4,11 @@
  * @email abhishekdass08@gmail.com
  * @publish 01-01-2018
 */
-
 import { Injectable, OnInit,Inject, PLATFORM_ID, Injector } from '@angular/core';
 import { Http, Response, HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { TaskModel } from '../models/task-model';
 
 @Injectable()
@@ -17,10 +16,17 @@ import { TaskModel } from '../models/task-model';
 export class TaskService {
 
 	/*
-		// Need 2 Subject Observerables
-		- completed task list
-		- incomplete task list
+		@variable inCompSource: BehaviorSubject receive all incomplete task
+		@variable compSource: BehaviorSubject receive all complete task
+		@variable inComp: asObservable of incomplete task
+		@variable comp: asObservable of complete task
 	*/
+	private inCompSource = new BehaviorSubject<TaskModel[]>([]);
+	private compSource = new BehaviorSubject<TaskModel[]>([]);
+
+	inComp = this.inCompSource.asObservable();
+	comp = this.compSource.asObservable();
+
 
 	constructor(private _http: Http, @Inject(PLATFORM_ID) private platformId: Object,
 			private injector: Injector) {}
@@ -54,11 +60,24 @@ export class TaskService {
 	*/
 	getTaskByFlag(resTaskList: TaskModel[], flag: string): TaskModel[] {
 
-		return resTaskList.filter((taskLs) => {
+		// console.log(flag);
+
+		let tmpList;
+
+		tmpList = resTaskList.filter((taskLs) => {
 			if(taskLs['status'] === flag) {
 				return taskLs;
 			}
 		});
+
+		if(flag == 'completed') {
+			this.compSource.next(tmpList);
+		} else {
+			this.inCompSource.next(tmpList);
+		}
+		
+		return tmpList;
+
 	}
 
 	/*
@@ -66,45 +85,64 @@ export class TaskService {
 	 * @param id: index of incomplete task which is not completed
 	 * @param completedTaskLs: as TaskModel[]
 	 * @param inCompleteTaskLs: filter by flag type
-	 * @return object completedTaskLs[] and inCompleteTaskLs[]
-	 * @purpose update complete and incomplete task list
+	 * @return void
+	 * @purpose update complete and incomplete task list observables
 	*/
-	changeTaskStatus(id:number, completedTaskLs: TaskModel[], inCompleteTaskLs: TaskModel[]) {
+	changeTaskStatus(id:number, completedTaskLs: TaskModel[], inCompleteTaskLs: TaskModel[]): void {
+
 
 		completedTaskLs.push(inCompleteTaskLs[id]);
+
+		this.compSource.next(completedTaskLs);
+
 		inCompleteTaskLs.splice(id, 1);
 
-		return {inCompleteTaskLs, completedTaskLs};
+		this.inCompSource.next(inCompleteTaskLs);
+
+		return;
 	}
 
 	/*
 	 * @func taskClose()
 	 * @param id: index of incomplete task which is not completed
 	 * @param completedTaskLs: as TaskModel[]
-	 * @return completedTaskLs[]
+	 * @return void
 	 * @purpose update completed task list on task close
 	*/
-	taskClose(id:number, completedTaskLs: TaskModel[]): TaskModel[] {
+	taskClose(id:number, completedTaskLs: TaskModel[]): void {
 
 		completedTaskLs.splice(id, 1);
 
-		return completedTaskLs;
+		this.compSource.next(completedTaskLs);
 	}
 
+	/*
+	 * @func taskDelete()
+	 * @param id: index of incomplete task which is not completed
+	 * @return void
+	 * @purpose update completed task list on task close
+	*/
+	taskDelete(id:number): void {
+
+		let deleteIncomp = this.inComp.subscribe(taskItm => {
+			taskItm.splice(id, 1);
+		});
+
+		deleteIncomp.unsubscribe();
+	}
 
 	/*
 	 * @func updateTaskList()
 	 * @param task: get the new task from user
 	 * @return incompleteTaskLs[]
-	 * @purpose update incompleted task list on task add new task
+	 * @purpose update incompleted task list Observerables
 	*/
-	updateTaskList(task: TaskModel) {
+	updateTaskList(task: TaskModel):void {
 
-		/*
-			* Just update incomplete taks list overserable
-		*/
-		// return completedTaskLs;
+		let subIncomp = this.inComp.subscribe(taskItm => {
+			taskItm.push(task);
+		});
+
+		subIncomp.unsubscribe();
 	}
-
-
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TaskService } from '../services/task.service';
 import { TaskModel } from '../models/task-model';
@@ -16,8 +16,6 @@ export class DashboardComponent implements OnInit {
 	 * Local variable declaration
 	*/
 	private routerSubs: any;
-	
-	@ViewChild(AddNewTaskComponent) private addNewTask:AddNewTaskComponent;
 
 	isAdd: boolean;
 
@@ -67,10 +65,8 @@ export class DashboardComponent implements OnInit {
 	*/
 	onTaskComplete(idx:number):void {
 
-		let updatedList = this._taskSrv.changeTaskStatus(idx, this.completedTaskLs, this.inCompletedTaskLs);
-
-		this.completedTaskLs = updatedList['completedTaskLs'];
-		this.inCompletedTaskLs = updatedList['inCompleteTaskLs'];
+		this._taskSrv.changeTaskStatus(idx, this.completedTaskLs, this.inCompletedTaskLs);
+		
 	}
 
 	/*
@@ -81,7 +77,7 @@ export class DashboardComponent implements OnInit {
 	*/
 	onTaskClose(idx:number): void {
 
-		this.completedTaskLs = this._taskSrv.taskClose(idx, this.completedTaskLs);
+		this._taskSrv.taskClose(idx, this.completedTaskLs);
 	}
 
 	/*
@@ -101,6 +97,27 @@ export class DashboardComponent implements OnInit {
 	*/
 	isCancelFunc(isCancel: boolean): void {
 		this.isAdd = isCancel;
+	}
+
+	/*
+	 * @func isCancelFunc()
+	 * @return void
+	 * @param isCancel: If user has cancel to new task window
+	 * Hide add new task window without adding new task to the task list
+	*/
+	onAddNewTask(): void {
+		this.isAdd = false;
+	}
+
+	/*
+	 * @func onTaskDelete()
+	 * @return void
+	 * @param isCancel: If user has cancel to new task window
+	 * Hide add new task window without adding new task to the task list
+	*/
+	onTaskDelete(idx:number): void {
+
+		this._taskSrv.taskDelete(idx);
 	}
 
 	/*
