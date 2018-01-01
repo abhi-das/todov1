@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
 	constructor(private _route: Router) {}
 
 	/*
-	 * @func On component initiaze
+	 * @func ngOnInit()
 	 * @return void
 	 * @variable loginForm: create FormGroup and add FormControls
 	*/
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
 	}
 
 	/*
-	 * @func On login submit
+	 * @func onAuth()
 	 * @return void
 	 * Redirect to dashboard page with the userid as route param
 	*/

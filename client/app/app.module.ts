@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
-import { AppDataService } from './services/app.data.service';
+import { TaskService } from './services/task.service';
 import { AppRoutingModule } from './app.routing';
 
 import { LoginComponent } from './login/login.component';
@@ -25,7 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     DashboardComponent
   ],
-  providers: [ AppDataService ],
+  providers: [ TaskService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

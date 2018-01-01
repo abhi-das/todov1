@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AppDataService } from './services/app.data.service';
 import { Response } from '@angular/http';
 
 @Component({

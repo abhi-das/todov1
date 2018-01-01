@@ -5,7 +5,7 @@ import {ModuleMapLoaderModule} from '@nguniversal/module-map-ngfactory-loader';
 import { HttpModule } from '@angular/http';
 import {AppModule} from './app.module';
 import {AppComponent} from './app.component';
-import { AppDataService } from './services/app.data.service';
+import { TaskService } from './services/task.service';
 import { AppRoutingModule } from './app.routing';
 
 
@@ -19,7 +19,7 @@ import { AppRoutingModule } from './app.routing';
     ServerModule,
     ModuleMapLoaderModule,
   ],
-  providers: [ AppDataService ],
+  providers: [ TaskService ],
   // Since the bootstrapped component is not inherited from your
   // imported AppModule, it needs to be repeated here.
   bootstrap: [AppComponent]

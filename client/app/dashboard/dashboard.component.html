@@ -13,9 +13,9 @@
 				</h2>
 				<!-- Task List -->
 				<ul class="task__task-list">
-					<li class="task__item">
-						<p class="task__item-title">Item Title</p>
-						<p class="task__item-description">Description</p>
+					<li class="task__item" *ngFor="let task of inCompletedTaskLs">
+						<p class="task__item-title">{{task.title}}</p>
+						<div class="task__item-description" [innerHTML]="task.description"></div>
 						<p class="task__item-author text-right text-info">
 							{{userId}}
 							<i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i></p>
@@ -38,9 +38,9 @@
 				</h2>
 				<!-- Task List -->
 				<ul class="task__task-list">
-					<li class="task__item">
-						<p class="task__item-title">Item Title</p>
-						<p class="task__item-description">Description</p>
+					<li class="task__item" *ngFor="let task of completedTaskLs">
+						<p class="task__item-title">{{task.title}}</p>
+						<div class="task__item-description" [innerHTML]="task.description"></div>
 						<p class="task__item-author text-right text-info">
 							{{userId}}
 							<i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i></p>
