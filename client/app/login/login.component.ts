@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 
@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
 	*/
 	ngOnInit():void {
 		this.loginForm = new FormGroup({
-			userid: new FormControl(),
-			password: new FormControl()
+			userid: new FormControl('', Validators.required ),
+			password: new FormControl('', Validators.required )
 		});
 	}
 
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 	 * Redirect to dashboard page with the userid as route param
 	*/
 	onAuth():void {
-		// console.log(this.loginForm.value);
+		
 		var tmpUserid = this.loginForm.value.userid;
 		
 		this._LoginSrv.setLoginId(tmpUserid);

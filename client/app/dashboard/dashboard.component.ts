@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TaskService } from '../services/task.service';
 import { TaskModel } from '../models/task-model';
+import { Router } from '@angular/router';
 
 import { AddNewTaskComponent } from './add-new-task/add-new-task.component';
 
@@ -30,7 +31,9 @@ export class DashboardComponent implements OnInit {
 
 	inCompletedTaskLs: Array<TaskModel>;
 
-	constructor(private _activeRoute: ActivatedRoute, private _taskSrv:TaskService) { }
+	constructor(private _activeRoute: ActivatedRoute, 
+			private _taskSrv:TaskService, 
+			private _router:Router) { }
 
 	/*
 	 * @func ngOnInit()
@@ -40,6 +43,8 @@ export class DashboardComponent implements OnInit {
 	ngOnInit():void {
 
 		this.isAdd = false;
+		this.completedTaskLs = [];
+		this.inCompletedTaskLs = [];
 
 		this.routerSubs = this._activeRoute.params.subscribe(params => this.userId = params['id']);
 
@@ -118,6 +123,16 @@ export class DashboardComponent implements OnInit {
 	onTaskDelete(idx:number): void {
 
 		this._taskSrv.taskDelete(idx);
+	}
+
+	/*
+	 * @func onLogoff()
+	 * @return void
+	*/
+	onLogoff(): void {
+		this.completedTaskLs = [];
+		this.inCompletedTaskLs = [];
+		this._router.navigate(['/login']);
 	}
 
 	/*
