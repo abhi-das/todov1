@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { TaskService } from '../../services/task.service';
 import { TaskModel } from '../../models/task-model';
@@ -30,8 +30,8 @@ export class AddNewTaskComponent implements OnInit {
 	ngOnInit() {
 
 		this.addNewTaskForm = new FormGroup({
-			title: new FormControl(),
-			description: new FormControl()
+			title: new FormControl('', Validators.required),
+			description: new FormControl('', Validators.required)
 		});
 	}
 
