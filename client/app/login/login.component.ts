@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
+import { UserLoginModel } from '../models/user.login.model';
 
 @Component({
   selector: 'login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
 	*/
 	ngOnInit():void {
 		this.loginForm = new FormGroup({
-			userid: new FormControl('', Validators.required ),
+			username: new FormControl('', Validators.required ),
 			password: new FormControl('', Validators.required )
 		});
 	}
@@ -36,11 +37,20 @@ export class LoginComponent implements OnInit {
 	*/
 	onAuth():void {
 		
-		var tmpUserid = this.loginForm.value.userid;
-		
-		this._LoginSrv.setLoginId(tmpUserid);
+		// console.log(">isValid>>",this.loginForm.valid);
+		let userLoginData = new UserLoginModel().deserialize(this.loginForm.value);
 
-		this._route.navigate(['/dashboard', tmpUserid ]);
+		// console.log("userLoginData > ",userLoginData);
+
+		this._LoginSrv.userLogin(userLoginData).subscribe(res => {
+			console.log('********** ',res);
+		});
+
+		// var tmpUserid = this.loginForm.value.username;
+		
+		// this._LoginSrv.setLoginId(tmpUserid);
+
+		// this._route.navigate(['/dashboard', tmpUserid ]);
 	}
 
 }

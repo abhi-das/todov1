@@ -22,4 +22,15 @@
 	& > div {
 		text-align: center;
 	}
+	
+	/* Form Error Messages Styles */
+	&__error {
+		&-container {
+			& p {
+			    padding: 0 1em;
+			    font-size: .8em;
+			    font-weight: bold;
+			}
+		}
+	}
 }

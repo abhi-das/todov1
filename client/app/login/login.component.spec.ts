@@ -41,9 +41,9 @@ describe('LoginComponent', () => {
       expect(component.loginForm.valid).toBeFalsy();
   });
 
-  it('userid should not be empty', () => {
-    let userIdEle = component.loginForm.controls['userid'];
-    expect(userIdEle.valid).toBeFalsy();
+  it('user name should not be empty', () => {
+    let usernameEle = component.loginForm.controls['username'];
+    expect(usernameEle.valid).toBeFalsy();
   })
 
   it('password should not be empty', () => {
@@ -53,13 +53,13 @@ describe('LoginComponent', () => {
 
   it('Submit a form data and match the user filled values ', () => {
     expect(component.loginForm.valid).toBeFalsy();
-    component.loginForm.controls['userid'].setValue('abc');
+    component.loginForm.controls['username'].setValue('abc');
     component.loginForm.controls['password'].setValue('password123');
 
     let formData = component.loginForm.value;
     component.onAuth();
 
-    expect(formData['userid']).toBe('abc');
+    expect(formData['username']).toBe('abc');
     expect(formData['password']).toBe('password123');
 
   })

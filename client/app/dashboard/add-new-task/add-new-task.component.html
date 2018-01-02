@@ -2,12 +2,27 @@
 	[formGroup]="addNewTaskForm"
 	(ngSubmit)="onAddTask()" >
 	
-	<div class="task__new-item-title form-group">
-		<input class="form-control input-lg" formControlName="title"/>
+	<div class="form-group">
+		<div class="task__new-item-title form-group">
+			<input class="form-control input-lg" formControlName="title"/>
+		</div>
+
+		<!-- Field Error Feedbck -->
+        <div class="task__error-container text-danger"
+             *ngIf="!addNewTaskForm.controls['title'].valid && addNewTaskForm.controls['title'].touched">
+          <p *ngIf="!addNewTaskForm.controls['title'].valid">Title is required</p>
+        </div>
 	</div>
 
 	<div class="task__new-item-description form-group">
 	    <textarea class="form-control" rows="3" formControlName="description"></textarea>
+
+	    <!-- Field Error Feedbck -->
+        <div class="task__error-container text-danger"
+             *ngIf="!addNewTaskForm.controls['description'].valid 
+             	&& addNewTaskForm.controls['description'].touched">
+          <p *ngIf="!addNewTaskForm.controls['description'].valid">Description is required</p>
+        </div>
 	</div>
 
 	<button type="button" class="btn btn-sm btn-link task__new-item-btn-close"
@@ -16,6 +31,7 @@
 	</button>
 
 	<div class="text-right">							
-		<button type="submit" class="btn btn-sm btn-link">Update</button>
+		<button type="submit" class="btn btn-sm btn-link"
+			[disabled]="!addNewTaskForm.valid">Update</button>
 	</div>
 </form>

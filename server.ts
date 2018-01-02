@@ -9,6 +9,20 @@ import { readFileSync } from 'fs';
 
 import * as bodyParser from 'body-parser';
 
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var q = require('q');
+var db = mongoose.connection;
+
+db.on('error', console.error);
+mongoose.Promise = q.Promise;
+
+//requiring local modeles
+var configs = require('./config');
+var routes = require('./routes/routes');
+var userModel = require('./models/users');
+var helperFunctions = require('./helpers/helperFunctions');
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -19,6 +33,13 @@ const app = express();
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : false}))
 
+//connedting to mongoDB
+mongoose.connect('mongodb://'+configs.dbHost+":"+configs.dbPort+'/'+configs.dbName);
+//populating data if DB is not already populated.
+helperFunctions.populateDb();
+
+//Initilizing routes.
+routes(app);
 
 const PORT = process.env.PORT || 4000;
 const DIST_FOLDER = join(process.cwd(), 'dist');
