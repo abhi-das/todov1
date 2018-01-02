@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
     "ng": "ng",
     "tmserver": "node index.js",
     "start": "ng serve",

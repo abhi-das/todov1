@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('masterform App', () => {
+describe('projtest App', () => {
   let page: AppPage;
 
   beforeEach(() => {

@@ -4,20 +4,20 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-const routes: Routes = [
+export const LocalRoutes: Routes = [
+  {
+    path: '', pathMatch: 'full', redirectTo: 'login'
+  },
   {
     path: 'login', component: LoginComponent
   },
   {
   	path: 'dashboard/:id', component: DashboardComponent
-  },
-  {
-  	path: '', pathMatch: 'full', redirectTo: 'login'
-  }
+  }  
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(LocalRoutes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
