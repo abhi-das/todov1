@@ -16,7 +16,8 @@
     "generate:prerender": "cd dist && node prerender",
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
     "serve:prerender": "cd dist/browser && http-server",
-    "serve:ssr": "node dist/server"
+    "serve:ssr": "node dist/server",
+    "tmpcoverage": "http-server -c-1 -o -p 9875 ./coverage"
   },
   "author": "abhishek",
   "license": "ISC",
